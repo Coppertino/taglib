@@ -62,9 +62,15 @@ extern "C" {
  * types in the implementation.
  */
 
-typedef struct { int dummy; } TagLib_File;
-typedef struct { int dummy; } TagLib_Tag;
-typedef struct { int dummy; } TagLib_AudioProperties;
+typedef struct {
+    int dummy;
+} TagLib_File;
+typedef struct {
+    int dummy;
+} TagLib_Tag;
+typedef struct {
+    int dummy;
+} TagLib_AudioProperties;
 
 /*!
  * By default all strings coming into or out of TagLib's C API are in UTF8.
@@ -84,23 +90,23 @@ TAGLIB_C_EXPORT void taglib_set_string_management_enabled(BOOL management);
 /*!
  * Explicitly free a string returned from TagLib
  */
-TAGLIB_C_EXPORT void taglib_free(void* pointer);
+TAGLIB_C_EXPORT void taglib_free(void *pointer);
 
 /*******************************************************************************
  * File API
  ******************************************************************************/
 
 typedef enum {
-  TagLib_File_MPEG,
-  TagLib_File_OggVorbis,
-  TagLib_File_FLAC,
-  TagLib_File_MPC,
-  TagLib_File_OggFlac,
-  TagLib_File_WavPack,
-  TagLib_File_Speex,
-  TagLib_File_TrueAudio,
-  TagLib_File_MP4,
-  TagLib_File_ASF
+    TagLib_File_MPEG,
+    TagLib_File_OggVorbis,
+    TagLib_File_FLAC,
+    TagLib_File_MPC,
+    TagLib_File_OggFlac,
+    TagLib_File_WavPack,
+    TagLib_File_Speex,
+    TagLib_File_TrueAudio,
+    TagLib_File_MP4,
+    TagLib_File_ASF
 } TagLib_File_Type;
 
 /*!
@@ -110,7 +116,11 @@ typedef enum {
  * \returns NULL if the file type cannot be determined or the file cannot
  * be opened.
  */
+#ifdef _WIN32
+TAGLIB_C_EXPORT TagLib_File *taglib_file_new(const wchar_t *filename);
+#else
 TAGLIB_C_EXPORT TagLib_File *taglib_file_new(const char *filename);
+#endif
 
 /*!
  * Creates a TagLib file based on \a filename.  Rather than attempting to guess
@@ -280,10 +290,10 @@ TAGLIB_C_EXPORT int taglib_audioproperties_channels(const TagLib_AudioProperties
  *******************************************************************************/
 
 typedef enum {
-  TagLib_ID3v2_Latin1,
-  TagLib_ID3v2_UTF16,
-  TagLib_ID3v2_UTF16BE,
-  TagLib_ID3v2_UTF8
+    TagLib_ID3v2_Latin1,
+    TagLib_ID3v2_UTF16,
+    TagLib_ID3v2_UTF16BE,
+    TagLib_ID3v2_UTF8
 } TagLib_ID3v2_Encoding;
 
 /*!
